@@ -1,7 +1,7 @@
 import { ScrollView, StatusBar, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ListBook } from "../../../constants/list_books";
-import BookCollectioins from "../latihan4/components/BookCollections";
+import BookCollections from "../latihan4/components/BookCollections";
 import Categoriesnav from "../latihan4/components/Categories";
 import CTABook from "../latihan4/components/CTABook";
 import Header from "../latihan4/components/Header";
@@ -12,7 +12,7 @@ export default function HomeScreen() {
   const [showSearch, setShowSearch] = useState(false);
   const[searchText, setSearchText] = useState("");
   
-  const lastBook = ListBook[ListBook.length - 1];
+  const lastBook = ListBook[ListBook.length - 3];
   const filteredBooks = ListBook.filter((book) => {
     const keyword = searchText.toLowerCase();
     return (
@@ -41,7 +41,7 @@ export default function HomeScreen() {
         <View style={{ flex: 1 }}>
           <CTABook book={lastBook} />
           <Categoriesnav />
-          <BookCollectioins books={filteredBooks} />
+          <BookCollections books={filteredBooks} />
         </View>
         {/* MAIN CONTENT */}
 
