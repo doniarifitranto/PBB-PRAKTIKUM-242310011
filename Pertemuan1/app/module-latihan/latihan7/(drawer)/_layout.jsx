@@ -45,6 +45,7 @@ export default function TabLayout() {
           drawerLabel: "Profile",
           title: "Profile",
         }}
+      />
       <Drawer.Screen
         name="qr_scan"
         options={{

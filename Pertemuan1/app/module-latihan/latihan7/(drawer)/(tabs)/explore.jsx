@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import * as Location from "expo-location";
-import { AppleMaps, GoogleMaps } from "expo-maps";
+import MapView, { Marker } from "react-native-maps";
 import { useRouter } from "expo-router";
 
 // List Stores Component
@@ -33,14 +33,13 @@ const ListStores = ({ stores = [] }) => {
   );
 };
 
-// Map View Component
-const MapView = ({ current_location }) => {
-  const cameraPosition = current_location ? {
-    coordinates: {
-      latitude: current_location.latitude,
-      longitude: current_location.longitude,
-    },
-    zoom: 13,
+// Map Component
+const MapComponent = ({ current_location }) => {
+  const region = current_location ? {
+    latitude: current_location.latitude,
+    longitude: current_location.longitude,
+    latitudeDelta: 0.05,
+    longitudeDelta: 0.05,
   } : null;
 
   if (Platform.OS === "web") {
@@ -55,30 +54,17 @@ const MapView = ({ current_location }) => {
     );
   }
 
-  if (Platform.OS === "ios") {
-    return (
-      <AppleMaps.View
-        style={{ flex: 1 }}
-        cameraPosition={cameraPosition}
-        showsUserLocation={true}
-        showsCompass={true}
-      />
-    );
-  } else if (Platform.OS === "android") {
-    return (
-      <GoogleMaps.View
-        style={{ flex: 1 }}
-        cameraPosition={cameraPosition}
-        showsUserLocation={true}
-        showsCompass={true}
-      />
-    );
-  }
-
   return (
-    <View style={[styles.map, styles.mapFallback]}>
-      <Text>Unsupported platform</Text>
-    </View>
+    <MapView
+      style={styles.map}
+      region={region}
+      showsUserLocation={true}
+      showsCompass={true}
+    >
+      {current_location && (
+        <Marker coordinate={{ latitude: current_location.latitude, longitude: current_location.longitude }} title="You are here" />
+      )}
+    </MapView>
   );
 };
 
@@ -139,7 +125,7 @@ export default function Explore() {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <MapView current_location={location} />
+      <MapComponent current_location={location} />
       <Header />
       <BottomSheet
         ref={bottomSheetRef}

@@ -12,7 +12,7 @@ export default function ProfileScreen() {
   const cameraRef = useRef(null);
 
   const [phone, setPhone] = useState("081234567890");
-  const [email, setEmail] = useState("anton.sukamto@ibik.ac.id");
+  const [email, setEmail] = useState("donidoni@gmail.com");
   const [address, setAddress] = useState("Jl. Rangga Gading No.01, Gudang, Kecamatan...");
 
   const handleOpenCamera = async () => {
@@ -50,7 +50,7 @@ export default function ProfileScreen() {
 
   const pickImageFromGallery = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    
+
     if (status !== "granted") {
       Alert.alert("Permission Denied", "Gallery permission is required to select photos");
       return;
@@ -86,7 +86,7 @@ export default function ProfileScreen() {
       <View style={styles.profileHeader}>
         <TouchableOpacity style={styles.avatarContainer} onPress={showImagePickerOptions}>
           <Image
-            source={avatarUri ? { uri: avatarUri } : require("../../../../assets/avatars/avatar.png")}
+            source={avatarUri ? { uri: avatarUri } : require("../../../../assets/avatar/profile.png")}
             style={styles.img_avatar}
             resizeMode="cover"
           />
@@ -94,9 +94,9 @@ export default function ProfileScreen() {
             <FontAwesome name="edit" size={16} color="#fff" />
           </View>
         </TouchableOpacity>
-        
-        <Text style={styles.nameText}>Anton Sukamto</Text>
-        <Text style={styles.npmText}>20200101</Text>
+
+        <Text style={styles.nameText}>Doni Arifitranto</Text>
+        <Text style={styles.npmText}>242310011</Text>
       </View>
 
       <View style={styles.formContainer}>
@@ -130,11 +130,11 @@ export default function ProfileScreen() {
               <TouchableOpacity style={styles.cancelButton} onPress={() => setIsCameraVisible(false)}>
                 <Text style={styles.buttonText}>Cancel</Text>
               </TouchableOpacity>
-              
+
               <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
                 <View style={styles.captureButtonInner} />
               </TouchableOpacity>
-              
+
               <View style={{ width: 80 }} />
             </View>
           </CameraView>
