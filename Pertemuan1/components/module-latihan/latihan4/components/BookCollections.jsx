@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { color_list, styles } from "../styles/StyleApps";
+import { useRouter } from "expo-router";
 
 export default function BookCollections({ books }) {
   const sortedBooks = [...books].sort((a, b) => b.id - a.id);
@@ -21,6 +22,8 @@ export default function BookCollections({ books }) {
 }
 
 const BookList = ({ books }) => {
+  const router = useRouter();
+  
   return (
     <View style={styles.book_grid}>
       {books.map((book, index) => (
@@ -28,6 +31,7 @@ const BookList = ({ books }) => {
           key={index}
           style={[styles.book_card, styles.shadow]}
           activeOpacity={0.7}
+          onPress={() => router.push(`/module-latihan/latihan6/detail/${book.id}`)}
         >
           <BookItemImg book={book} />
           <BookItemContent book={book} />
