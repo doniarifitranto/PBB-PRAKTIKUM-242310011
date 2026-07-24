@@ -1,7 +1,8 @@
 import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../styles/StyleApps";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Header({
   showSearch,
@@ -10,6 +11,24 @@ export default function Header({
   setSearchText,
 }) {
   const inputRef = useRef(null);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
+
+  const checkLoginStatus = async () => {
+    try {
+      const userDataString = await AsyncStorage.getItem("userData");
+      if (userDataString !== null) {
+        setUserData(JSON.parse(userDataString));
+      } else {
+        setUserData(null);
+      }
+    } catch (error) {
+      console.warn("Error checking login status:", error);
+    }
+  };
 
   useEffect(() => {
     if (showSearch) {
@@ -40,7 +59,7 @@ export default function Header({
         <>
           <View>
             <Text style={styles.sub_title}>Good Morning</Text>
-            <Text style={styles.title}>Discover Books</Text>
+            <Text style={styles.title}>{userData?.username || "Discover Books"}</Text>
           </View>
 
           <View style={{ flexDirection: "row", gap: 10 }}>
