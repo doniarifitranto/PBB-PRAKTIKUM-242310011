@@ -31,7 +31,7 @@ const BookList = ({ books }) => {
           key={index}
           style={[styles.book_card, styles.shadow]}
           activeOpacity={0.7}
-          onPress={() => router.push(`/module-latihan/latihan7/detail/${book.id}`)}
+          onPress={() => router.push(`/module-latihan/latihan8/detail/${book.id}`)}
         >
           <BookItemImg book={book} />
           <BookItemContent book={book} />

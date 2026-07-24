@@ -64,7 +64,7 @@ const ButtonRead = ({ book }) => {
   const router = useRouter();
   
   const handleReadNow = () => {
-    router.push(`/module-latihan/latihan7/detail/${book.id}`);
+    router.push(`/module-latihan/latihan8/detail/${book.id}`);
   };
 
   return (

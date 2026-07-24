@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ListBook } from "../../../../constants/list_books";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -27,8 +27,14 @@ export default function Detail() {
     try {
       const userDataString = await AsyncStorage.getItem("userData");
       if (!userDataString) {
-        // Redirect to Sign In if not logged in
-        router.replace("/module-latihan/latihan8/signin");
+        Alert.alert(
+          "Login Required",
+          "Please sign in to read this book",
+          [
+            { text: "Cancel", style: "cancel", onPress: () => router.back() },
+            { text: "Sign In", onPress: () => router.replace("/module-latihan/latihan8/signin") }
+          ]
+        );
       }
     } catch (error) {
       console.error("Error checking auth:", error);
